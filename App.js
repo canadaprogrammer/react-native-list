@@ -1,14 +1,16 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button, ScrollView, FlatList,SectionList } from 'react-native';
-import Constants from 'expo-constants';
+import React from 'react'
+import { StyleSheet, Text, View, Button, ScrollView, FlatList,SectionList } from 'react-native'
+import Constants from 'expo-constants'
 
-import contacts, {compareNames} from './contacts';
-import Row from './Row';
-import ContactsList from './ContactsList';
+import contacts, {compareNames} from './contacts'
+import Row from './Row'
+import ContactsList from './ContactsList'
+import AddContactForm from './AppContactForm'
 
 export default class App extends React.Component {
   state = {
     showContacts: false,
+    showForm: false,
     contacts: contacts
   }
 
@@ -18,6 +20,11 @@ export default class App extends React.Component {
     }))
   }
 
+  toggleForm = () => {
+    this.setState(prevState => ({
+      showForm: !prevState.showForm
+    }))
+  }
   sort = () => {
     this.setState(prevState => ({
       contacts:  [...prevState.contacts].sort(compareNames)
@@ -33,10 +40,12 @@ export default class App extends React.Component {
   // renderSectionHeader = obj => <Text>{obj.section.title}</Text>
 
   render() {
+    if (this.state.showForm) return <AddContactForm />
     return (
       <View style={styles.container}>
         <Button title="toggle contacts" onPress={this.toggleContacts} />
-        <Button title="sort" onPress={this.sort} />
+        {/* <Button title="sort" onPress={this.sort} /> */}
+        <Button title="Add Contact" onPress={this.toggleForm} />
         {this.state.showContacts && 
           // using ScrollView
           // <ScrollView>
