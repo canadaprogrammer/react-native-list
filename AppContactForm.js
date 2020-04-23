@@ -33,10 +33,10 @@ export default class AppContactForm extends React.Component {
             this.validateForm()
     }
 
-    handleNameChange = name => {
-        // this.setState({name}, this.validateForm)
-        this.setState({name})
-    }
+    // handleNameChange = name => {
+    //     // this.setState({name}, this.validateForm)
+    //     this.setState({name})
+    // }
 
     handlePhoneNumChange = phone => {
         // validation for phone number
@@ -47,6 +47,17 @@ export default class AppContactForm extends React.Component {
             // this.setState({phone}, this.validateForm)
             this.setState({phone})
     }
+
+    // handle event by a handler
+    // getHandler = key => {
+    //     return val => {
+    //         this.setState({[key]: val})
+    //     }
+    // }
+    getHandler = key => val => this.setState({[key]: val})
+
+    // handleNameChange = this.getHandler('name')  // val => {this.setState({name:val})}
+    // handlePhoneChange = this.getHandler('phone')
 
     validateForm = () => {
         if (+this.state.phone >= 0 && this.state.phone.length === 10 && this.state.name.length >= 3)
@@ -65,13 +76,15 @@ export default class AppContactForm extends React.Component {
             <KeyboardAvoidingView behavior="padding" style={styles.appContainer}>
                 <TextInput 
                     style={styles.input} 
-                    onChangeText={this.handleNameChange} 
+                    // onChangeText={this.handleNameChange} 
+                    onChangeText={this.getHandler('name')}
                     value={this.state.name} 
                     placeholder="Name"
                 />
                 <TextInput 
                     style={styles.input} 
                     onChangeText={this.handlePhoneNumChange} 
+                    // onChangeText={this.getHandler('phone')}
                     value={this.state.phone} 
                     keyboardType="numeric"
                     placeholder="Phone"
