@@ -4,6 +4,7 @@ import Constants from 'expo-constants';
 
 import contacts, {compareNames} from './contacts';
 import Row from './Row';
+import ContactsList from './ContactsList';
 
 export default class App extends React.Component {
   state = {
@@ -27,21 +28,22 @@ export default class App extends React.Component {
   // item: { name: String, phone: String, key: number }
   // renderItem = obj => <Row name={obj.item.name} phone={obj.item.phone} key={obj.item.key} />
   // renderItem = obj => <Row {...(obj.item)} />
-  renderItem = ({item}) => <Row {...item} />
-  renderSectionHeader = obj => <Text>{obj.section.title}</Text>
+
+  // renderItem = ({item}) => <Row {...item} />
+  // renderSectionHeader = obj => <Text>{obj.section.title}</Text>
 
   render() {
     return (
       <View style={styles.container}>
         <Button title="toggle contacts" onPress={this.toggleContacts} />
         <Button title="sort" onPress={this.sort} />
-        {this.state.showContacts && (
+        {this.state.showContacts && 
           // using ScrollView
           // <ScrollView>
           //   {contacts.map(contact => 
           //     // <Row key={c.key} name={c.name} phone={c.phone} />
           //     <Row {...contact} />
-          //   )}
+          //   )} 
           // </ScrollView>
 
           // using FlatList
@@ -51,15 +53,21 @@ export default class App extends React.Component {
           // />
 
           // using SectionList
-          <SectionList
-            renderItem={this.renderItem}
-            renderSectionHeader={this.renderSectionHeader}
-            sections={[{
-              title: 'A',
-              data: this.state.contacts
-            }]}
+          // <SectionList
+          //   renderItem={this.renderItem}
+          //   renderSectionHeader={this.renderSectionHeader}
+          //   sections={[{
+          //     title: 'A',
+          //     data: this.state.contacts
+          //   }]}
+          // />
+          <ContactsList
+            // moving it to ContactsList.js
+            // renderItem={this.renderItem}
+            // renderSectionHeader={this.renderSectionHeader}
+            contacts={this.state.contacts}
           />
-        )}
+        }
         
       </View>
     );
