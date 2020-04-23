@@ -1,11 +1,11 @@
 import React from 'react'
-import { View, TextInput, Button, StyleSheet } from 'react-native'
+import { View, TextInput, Button, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import PropTypes from 'prop-types'
 import Constants from 'expo-constants'
 
 const styles = StyleSheet.create({
     appContainer: {
-        paddingTop: Constants.statusBarHeight
+        justifyContent: 'center',
     },
     input: {
         padding: 5,
@@ -50,14 +50,16 @@ export default class AppContactForm extends React.Component {
             return this.setState({isFormValid: true})
         else return this.setState({isFormValid: false})
     }
+
     handleSubmit = () => {
         // this.props.onSubmit({name:this.state.name, phone:this.state.phone})
         // this.props.onSubmit({...this.state})
         this.props.onSubmit(this.state)
     }
+
     render() {
         return (
-            <View style={styles.appContainer}>
+            <KeyboardAvidingView behavior="padding" style={styles.appContainer}>
                 <TextInput 
                     style={styles.input} 
                     onChangeText={this.handleNameChange} 
@@ -72,7 +74,7 @@ export default class AppContactForm extends React.Component {
                     placeholder="Phone"
                 />
                 <Button title="Submit" onPress={this.handleSubmit} disabled={!this.state.isFormValid}/>
-            </View>
+            </KeyboardAvidingView>
         )
     }
 }
