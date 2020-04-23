@@ -5,6 +5,9 @@ import Constants from 'expo-constants'
 
 const styles = StyleSheet.create({
     appContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingTop: Constants.statusBarHeight,
         justifyContent: 'center',
     },
     input: {
@@ -26,7 +29,7 @@ export default class AppContactForm extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.name !== prevState.name || this.state.phone == !prevState.phone)
+        if (this.state.name !== prevState.name || this.state.phone !== prevState.phone)
             this.validateForm()
     }
 
@@ -59,7 +62,7 @@ export default class AppContactForm extends React.Component {
 
     render() {
         return (
-            <KeyboardAvidingView behavior="padding" style={styles.appContainer}>
+            <KeyboardAvoidingView behavior="padding" style={styles.appContainer}>
                 <TextInput 
                     style={styles.input} 
                     onChangeText={this.handleNameChange} 
@@ -74,7 +77,7 @@ export default class AppContactForm extends React.Component {
                     placeholder="Phone"
                 />
                 <Button title="Submit" onPress={this.handleSubmit} disabled={!this.state.isFormValid}/>
-            </KeyboardAvidingView>
+            </KeyboardAvoidingView>
         )
     }
 }

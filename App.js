@@ -15,7 +15,7 @@ export default class App extends React.Component {
   }
 
   addContact = newContact => {
-    this.setState(prevState => ({showFrom: false, contact: [...prevState.contacts, newContact]}))
+    this.setState(prevState => ({showForm: false, contacts: [...prevState.contacts, newContact]}))
   }
 
   toggleContacts = () => {
@@ -40,6 +40,7 @@ export default class App extends React.Component {
   // renderItem = obj => <Row name={obj.item.name} phone={obj.item.phone} key={obj.item.key} />
   // renderItem = obj => <Row {...(obj.item)} />
 
+  // move it to ContactList.js for grouping
   // renderItem = ({item}) => <Row {...item} />
   // renderSectionHeader = obj => <Text>{obj.section.title}</Text>
 
