@@ -25,8 +25,14 @@ export default class AppContactForm extends React.Component {
         isFormValid: false,
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.name !== prevState.name || this.state.phone == !prevState.phone)
+            this.validateForm()
+    }
+
     handleNameChange = name => {
-        this.setState({name}, this.validateForm)
+        // this.setState({name}, this.validateForm)
+        this.setState({name})
     }
 
     handlePhoneNumChange = phone => {
@@ -34,7 +40,9 @@ export default class AppContactForm extends React.Component {
         // +'number' return number
         // +'' return 0
         // +'number with string' or +'string' return NaN
-        if (+phone >= 0 && phone.length <= 10) this.setState({phone}, this.validateForm)
+        if (+phone >= 0 && phone.length <= 10) 
+            // this.setState({phone}, this.validateForm)
+            this.setState({phone})
     }
 
     validateForm = () => {
