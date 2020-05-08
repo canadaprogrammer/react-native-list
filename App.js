@@ -1,16 +1,36 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, ScrollView, FlatList,SectionList } from 'react-native'
 import Constants from 'expo-constants'
+// import {Constants} from 'expo'
 
 import contacts, {compareNames} from './contacts'
-import Row from './Row'
-import ContactsList from './ContactsList'
-import AddContactForm from './AppContactForm'
+// import Row from './Row'
+// import ContactsList from './ContactsList'
+// import AddContactForm from './AddContactForm'
+import {createStackNavigator, createSwitchNavigator} from 'react-navigation'
+import AddContactScreen from './screens/AddContactScreen'
+import ContactListScreen from './screens/ContactListScreen'
+import ContactDetailsScreen from './screens/ContactDetailsScreen'
+import LoginScreen from './screens/LoginScreen'
 
+const MainNavigator = createStackNavigator({
+  AddContact: AddContactScreen,
+  ContactList: ContactListScreen,
+  ContactDetails: ContactDetailsScreen,
+}, {
+  initialRouteName: 'ContactList',
+})
+
+const AppNavigator = createSwitchNavigator({
+  Main: MainNavigator,
+  Login: LoginScreen,
+}, {
+  initialRouteName: 'Login'
+})
 export default class App extends React.Component {
   state = {
-    showContacts: false,
-    showForm: false,
+    // showContacts: true,
+    // showForm: false,
     contacts: contacts
   }
 
@@ -18,22 +38,22 @@ export default class App extends React.Component {
     this.setState(prevState => ({showForm: false, contacts: [...prevState.contacts, newContact]}))
   }
 
-  toggleContacts = () => {
-    this.setState(prevState => ({
-      showContacts: !prevState.showContacts
-    }))
-  }
+  // toggleContacts = () => {
+  //   this.setState(prevState => ({
+  //     showContacts: !prevState.showContacts
+  //   }))
+  // }
 
-  toggleForm = () => {
-    this.setState(prevState => ({
-      showForm: !prevState.showForm
-    }))
-  }
-  sort = () => {
-    this.setState(prevState => ({
-      contacts:  [...prevState.contacts].sort(compareNames)
-    }))
-  }
+  // toggleForm = () => {
+  //   this.setState(prevState => ({
+  //     showForm: !prevState.showForm
+  //   }))
+  // }
+  // sort = () => {
+  //   this.setState(prevState => ({
+  //     contacts:  [...prevState.contacts].sort(compareNames)
+  //   }))
+  // }
 
   // key is automatically generated
   // item: { name: String, phone: String, key: number }
@@ -45,46 +65,51 @@ export default class App extends React.Component {
   // renderSectionHeader = obj => <Text>{obj.section.title}</Text>
 
   render() {
-    if (this.state.showForm) return <AddContactForm onSubmit={this.addContact} />
-    return (
-      <View style={styles.container}>
-        <Button title="toggle contacts" onPress={this.toggleContacts} />
-        {/* <Button title="sort" onPress={this.sort} /> */}
-        <Button title="Add Contact" onPress={this.toggleForm} />
-        {this.state.showContacts && 
-          // using ScrollView
-          // <ScrollView>
-          //   {contacts.map(contact => 
-          //     // <Row key={c.key} name={c.name} phone={c.phone} />
-          //     <Row {...contact} />
-          //   )} 
-          // </ScrollView>
+    return <AppNavigator 
+              screenProps={{
+                contacts: this.state.contacts,
+                addContact: this.addContact,
+              }}/>
+    // if (this.state.showForm) return /* <AddContactForm onSubmit={this.addContact} /> */
+    // return (
+    //   <View style={styles.container}>
+    //     <Button title="toggle contacts" onPress={this.toggleContacts} />
+    //     {/* <Button title="sort" onPress={this.sort} /> */}
+    //     <Button title="Add Contact" onPress={this.toggleForm} />
+    //     {this.state.showContacts && 
+    //       // using ScrollView
+    //       // <ScrollView>
+    //       //   {contacts.map(contact => 
+    //       //     // <Row key={c.key} name={c.name} phone={c.phone} />
+    //       //     <Row {...contact} />
+    //       //   )} 
+    //       // </ScrollView>
 
-          // using FlatList
-          // <FlatList
-          //   renderItem={this.renderItem}
-          //   data={this.state.contacts}
-          // />
+    //       // using FlatList
+    //       // <FlatList
+    //       //   renderItem={this.renderItem}
+    //       //   data={this.state.contacts}
+    //       // />
 
-          // using SectionList
-          // <SectionList
-          //   renderItem={this.renderItem}
-          //   renderSectionHeader={this.renderSectionHeader}
-          //   sections={[{
-          //     title: 'A',
-          //     data: this.state.contacts
-          //   }]}
-          // />
-          <ContactsList
-            // moving it to ContactsList.js
-            // renderItem={this.renderItem}
-            // renderSectionHeader={this.renderSectionHeader}
-            contacts={this.state.contacts}
-          />
-        }
+    //       // using SectionList
+    //       // <SectionList
+    //       //   renderItem={this.renderItem}
+    //       //   renderSectionHeader={this.renderSectionHeader}
+    //       //   sections={[{
+    //       //     title: 'A',
+    //       //     data: this.state.contacts
+    //       //   }]}
+    //       // />
+    //       <ContactsList
+    //         // moving it to ContactsList.js
+    //         // renderItem={this.renderItem}
+    //         // renderSectionHeader={this.renderSectionHeader}
+    //         contacts={this.state.contacts}
+    //       />
+    //     }
         
-      </View>
-    );
+    //   </View>
+    // );
     }
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
     row: {
@@ -7,10 +7,12 @@ const styles = StyleSheet.create({
     }
 })
 const Row = props => (
-    <View style={styles.row}>
+    <TouchableOpacity style={styles.row}  onPress={() => (
+        props.onSelectContact(props)
+    )}>
       <Text>{props.name}</Text>
       <Text>{props.phone}</Text>
-    </View>
+    </TouchableOpacity>
 )
 
 export default Row
