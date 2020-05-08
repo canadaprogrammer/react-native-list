@@ -3,7 +3,9 @@ import { StyleSheet, Text, View, Button, ScrollView, FlatList,SectionList } from
 import Constants from 'expo-constants'
 // import {Constants} from 'expo'
 
-import contacts, {compareNames} from './contacts'
+// import contacts, {compareNames} from './contacts'
+import {fetchUsers} from './api'
+
 // import Row from './Row'
 // import ContactsList from './ContactsList'
 // import AddContactForm from './AddContactForm'
@@ -55,12 +57,24 @@ export default class App extends React.Component {
   state = {
     // showContacts: true,
     // showForm: false,
-    contacts: contacts
+    // contacts: contacts
+    contacts: null
   }
 
   addContact = newContact => {
     this.setState(prevState => ({showForm: false, contacts: [...prevState.contacts, newContact]}))
   }
+
+  componentDidMount() {
+    this.getUsers()
+  }
+
+  getUsers = async () => {
+    const results = await fetchUsers()
+    this.setState({
+      contacts: results
+    })
+  } 
 
   // toggleContacts = () => {
   //   this.setState(prevState => ({
