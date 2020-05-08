@@ -9,7 +9,7 @@ export default class ContactDetailsScreen extends Component {
         return (
             <View>
                 <Text>{this.props.navigation.getParam('phone')}</Text>
-                <Button title="Go to random number" onPress={this._goToRandom}/>
+                <Button title="Go to random contact" onPress={this._goToRandom}/>
             </View>
         )
     }

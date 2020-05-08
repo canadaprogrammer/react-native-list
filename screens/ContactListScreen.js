@@ -8,7 +8,7 @@ export default class ContactListScreen extends Component {
     static navigationOptions = ({navigation}) => ({
       headerTitle: 'Contacts',
       headerRight: (
-        <Button title="Add" onPress={() => {navigation.navigate('AddContact')}}
+        <Button title="Add" color="#a41034" onPress={() => {navigation.navigate('AddContact')}}
         />
       ),
     })
@@ -26,8 +26,8 @@ export default class ContactListScreen extends Component {
     render() {
         return (
             <View style={StyleSheet.container}>
-                <Button title="toggle contacts" onPress={this.toggleContats}/>
-                <Button title="add contact" onPress={this.showForm}/>
+                {/* <Button title="toggle contacts" onPress={this.toggleContats}/> */}
+                {/* <Button title="add contact" onPress={this.showForm}/> */}
                 {this.state.showContacts && (
                     <ContactsList 
                         contacts={this.props.screenProps.contacts}

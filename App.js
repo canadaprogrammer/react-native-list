@@ -7,25 +7,49 @@ import contacts, {compareNames} from './contacts'
 // import Row from './Row'
 // import ContactsList from './ContactsList'
 // import AddContactForm from './AddContactForm'
-import {createStackNavigator, createSwitchNavigator} from 'react-navigation'
+import {createStackNavigator, createSwitchNavigator, createTabNavigator} from 'react-navigation'
 import AddContactScreen from './screens/AddContactScreen'
 import ContactListScreen from './screens/ContactListScreen'
 import ContactDetailsScreen from './screens/ContactDetailsScreen'
 import LoginScreen from './screens/LoginScreen'
+import SettingsScreen from './screens/SettingsScreen'
+import {Ionicons} from 'react-native-vector-icons'
 
-const MainNavigator = createStackNavigator({
+const ContactTab = createStackNavigator({
   AddContact: AddContactScreen,
   ContactList: ContactListScreen,
   ContactDetails: ContactDetailsScreen,
 }, {
   initialRouteName: 'ContactList',
+  navigationOptions: {
+    headerTintColor: '#a41034'
+  }
+})
+
+ContactTab.navigationOptions = {
+  tabBarIcon: ({ focused, tintColor }) => (
+    <Ionicons
+      name={`ios-contact${focused ? 's' : ''}`}
+      size={25}
+      color={tintColor}
+    />
+  )
+}
+
+const MainNavigator = createTabNavigator({
+  Contacts: ContactTab,
+  Settings: SettingsScreen,
+}, {
+  tabBarOptions: {
+    activeTintColor: '#a41034'
+  }
 })
 
 const AppNavigator = createSwitchNavigator({
   Main: MainNavigator,
   Login: LoginScreen,
 }, {
-  initialRouteName: 'Login'
+  initialRouteName: 'Login',
 })
 export default class App extends React.Component {
   state = {
