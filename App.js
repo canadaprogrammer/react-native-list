@@ -9,7 +9,7 @@ import {fetchUsers} from './api'
 // import Row from './Row'
 // import ContactsList from './ContactsList'
 // import AddContactForm from './AddContactForm'
-import {createStackNavigator, createSwitchNavigator, createTabNavigator} from 'react-navigation'
+import {createStackNavigator, createSwitchNavigator, createBottomTabNavigator} from 'react-navigation'
 import AddContactScreen from './screens/AddContactScreen'
 import ContactListScreen from './screens/ContactListScreen'
 import ContactDetailsScreen from './screens/ContactDetailsScreen'
@@ -38,7 +38,7 @@ ContactTab.navigationOptions = {
   )
 }
 
-const MainNavigator = createTabNavigator({
+const MainNavigator = createBottomTabNavigator({
   Contacts: ContactTab,
   Settings: SettingsScreen,
 }, {
