@@ -17,9 +17,11 @@ import LoginScreen from './screens/LoginScreen'
 import SettingsScreen from './screens/SettingsScreen'
 import {Ionicons} from 'react-native-vector-icons'
 
+import {PersistGate} from 'redux-persist/integration/react'
 // using react-redux
 import {Provider} from 'react-redux'
-import store from './redux/store'
+import {store, persistor} from './redux/store'
+
 
 const ContactTab = createStackNavigator({
   AddContact: AddContactScreen,
@@ -109,14 +111,16 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <AppNavigator 
-          // screenProps={{
-          //   contacts: this.state.contacts,
-          //   addContact: this.addContact,
-          // }}
+        <PersistGate loading={null} persistor={persistor}>
+          <AppNavigator 
+            // screenProps={{
+            //   contacts: this.state.contacts,
+            //   addContact: this.addContact,
+            // }}
 
-          // removed above for using reducer
-        />
+            // removed above for using reducer
+          />
+        </PersistGate>
       </Provider>
     )
     // if (this.state.showForm) return /* <AddContactForm onSubmit={this.addContact} /> */
