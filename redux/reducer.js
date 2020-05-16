@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux'
-import {UPDATE_CONTACT, UPDATE_USER} from './actions'
+import {UPDATE_CONTACT, UPDATE_USER, LOG_IN_SENT, LOG_IN_FULFILLED, LOG_IN_REJECTED} from './actions'
 
 const marge = (prev, next) => Object.assign({}, prev, next)
 
@@ -14,6 +14,10 @@ const userReducer = (state = {}, action) => {
             return marge(state, action.payload)
         case UPDATE_CONTACT:
             return marge(state, {prevContact: action.payload})
+        case LOG_IN_FULFILLED:
+            return marge(state, {token: action.payload})
+        case LOG_IN_REJECTED:
+            return marge(state, {loginErr: action.payload})
         default:
             return state
     }

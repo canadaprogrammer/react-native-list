@@ -1,13 +1,28 @@
 import React, {Component} from 'react'
 import {Button, View, StyleSheet, TextInput, Text} from 'react-native'
-import {login} from '../api'
-export default class LoginScreen extends Component {
+// import {login} from '../api'
+import {connect} from 'react-redux'
+import {logInUser} from '../redux/actions'
+import PropTypes from 'prop-types'
+
+// export default class LoginScreen extends Component {
+class LoginScreen extends Component {
+    static propTypes = {
+        err: PropTypes.string,
+        token: PropTypes.string,
+        logInUser: PropTypes.func
+    }
     state = {
         username: '',
         password: '',
         err: ''
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.token) {
+            this.props.navigation.navigate('Main')
+        }
+    }
     handleUsernameUpdate = username => {
         this.setState({username})
     }
@@ -19,7 +34,8 @@ export default class LoginScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={[styles.text, styles.error]}>{this.state.err}</Text>
+                {/* <Text style={[styles.text, styles.error]}>{this.state.err}</Text> */}
+                <Text style={[styles.text, styles.error]}>{this.props.err}</Text>
                 <TextInput
                     placeholder="username"
                     value={this.state.username}
@@ -68,13 +84,14 @@ export default class LoginScreen extends Component {
     // }
 
     _login = async () => {
-        try {
-            const success = await login(this.state.username, this.state.password)
-            this.props.navigation.navigate('Main')
-        } catch (e) {
-            const errMessage = e.message
-            this.setState({err: errMessage})
-        }
+        // try {
+            // const success = await login(this.state.username, this.state.password)
+            this.props.logInUser(this.state.username, this.state.password)
+            // this.props.navigation.navigate('Main')
+        // } catch (err) {
+            // const errMessage = err.message
+            // this.setState({err: errMessage})
+        // }
     }
 }
 
@@ -90,3 +107,10 @@ const styles = StyleSheet.create({
         color: 'red'
     }
 })
+
+const mapStateToProps = state => ({
+    err: state.user.loginErr,
+    token: state.user.token
+})
+
+export default connect(mapStateToProps, {logInUser})(LoginScreen)
