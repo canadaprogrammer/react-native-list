@@ -17,6 +17,10 @@ import LoginScreen from './screens/LoginScreen'
 import SettingsScreen from './screens/SettingsScreen'
 import {Ionicons} from 'react-native-vector-icons'
 
+// using react-redux
+import {Provider} from 'react-redux'
+import store from './redux/store'
+
 const ContactTab = createStackNavigator({
   AddContact: AddContactScreen,
   ContactList: ContactListScreen,
@@ -103,11 +107,18 @@ export default class App extends React.Component {
   // renderSectionHeader = obj => <Text>{obj.section.title}</Text>
 
   render() {
-    return <AppNavigator 
-              screenProps={{
-                contacts: this.state.contacts,
-                addContact: this.addContact,
-              }}/>
+    return (
+      <Provider store={store}>
+        <AppNavigator 
+          // screenProps={{
+          //   contacts: this.state.contacts,
+          //   addContact: this.addContact,
+          // }}
+
+          // removed above for using reducer
+        />
+      </Provider>
+    )
     // if (this.state.showForm) return /* <AddContactForm onSubmit={this.addContact} /> */
     // return (
     //   <View style={styles.container}>

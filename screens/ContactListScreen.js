@@ -3,8 +3,11 @@ import {Button, View, StyleSheet} from 'react-native'
 import Constants from 'expo-constants'
 
 import ContactsList from '../ContactsList'
+// import store from '../redux/store'
+import {connect} from 'react-redux'
 
-export default class ContactListScreen extends Component {
+// export default class ContactListScreen extends Component {
+class ContactListScreen extends Component {
     static navigationOptions = ({navigation}) => ({
       headerTitle: 'Contacts',
       headerRight: (
@@ -23,23 +26,43 @@ export default class ContactListScreen extends Component {
         this.props.navigation.navigate('AddContact')
     }
 
+    handleSelectContact = contact => {
+        this.props.navigation.navigate('ContactDetails', {
+            name: contact.name,
+            phone: contact.phone
+        })
+    }
     render() {
+        // const contacts = store.getState().contacts
         return (
             <View style={StyleSheet.container}>
-                {/* <Button title="toggle contacts" onPress={this.toggleContats}/> */}
+                <Button title="toggle contacts" onPress={this.toggleContats}/>
                 {/* <Button title="add contact" onPress={this.showForm}/> */}
                 {this.state.showContacts && (
                     <ContactsList 
-                        contacts={this.props.screenProps.contacts}
-                        onSelectContact={(contact) => {
-                            this.props.navigation.navigate('ContactDetails', {
-                                phone: contact.phone,
-                                name: contact.name,
-                            })
-                        }} 
+                        // contacts={this.props.screenProps.contacts}
+
+                        // using redux
+                        // contacts={contacts}
+
+                        // using connect
+                        contacts={this.props.contacts}
+                        // onSelectContact={(contact) => {
+                        //     this.props.navigation.navigate('ContactDetails', {
+                        //         phone: contact.phone,
+                        //         name: contact.name,
+                        //     })
+                        // }} 
+                        onSelectContact={this.handleSelectContact}
                     />
                 )}
             </View>
         )
     }
 }
+
+const mapStateToProps = state => ({
+    contacts: state.contacts
+})
+
+export default connect(mapStateToProps)(ContactListScreen)
