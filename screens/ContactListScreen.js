@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, {Component} from 'react'
 import {Button, View, StyleSheet} from 'react-native'
 import Constants from 'expo-constants'
@@ -5,6 +6,8 @@ import Constants from 'expo-constants'
 import ContactsList from '../ContactsList'
 // import store from '../redux/store'
 import {connect} from 'react-redux'
+
+import {changeFirstContact} from '../redux/actions'
 
 // export default class ContactListScreen extends Component {
 class ContactListScreen extends Component {
@@ -38,6 +41,7 @@ class ContactListScreen extends Component {
             <View style={StyleSheet.container}>
                 <Button title="toggle contacts" onPress={this.toggleContats}/>
                 {/* <Button title="add contact" onPress={this.showForm}/> */}
+                <Button title="change first contact" onPress={this.props.changeFirstContact}/>
                 {this.state.showContacts && (
                     <ContactsList 
                         // contacts={this.props.screenProps.contacts}
@@ -65,4 +69,4 @@ const mapStateToProps = state => ({
     contacts: state.contacts
 })
 
-export default connect(mapStateToProps)(ContactListScreen)
+export default connect(mapStateToProps, {changeFirstContact})(ContactListScreen)

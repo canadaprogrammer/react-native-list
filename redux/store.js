@@ -1,8 +1,9 @@
+/* eslint-disable import/order */
 import {createStore, applyMiddleware} from 'redux'
-import {addContact} from './actions'
+// import {addContact} from './actions'
 import reducer from './reducer'
 import thunk from 'redux-thunk'
-import contacts from '../contacts'
+// import contacts from '../contacts'
 
 // const thunkMiddleware = store => next => action => {
 //     if (typeof action === 'function') {
@@ -26,13 +27,13 @@ store.dispatch(addContact({name: 'Anderw E', phone: '1231231234'}))
 
 */
 
-const num_contacts = contacts.length
+// contacts are initialize on reducer
+// const num_contacts = contacts.length
 
-for (let i = 0; i < num_contacts; i++) {
-    store.dispatch(addContact({name: contacts[i].name, phone:contacts[i].phone}))
-}
+// for (let i = 0; i < num_contacts; i++) {
+//     store.dispatch(addContact({name: contacts[i].name, phone:contacts[i].phone}))
+// }
 
-
-console.log(store.getState())
+// console.log(store.getState())
 
 export default store
