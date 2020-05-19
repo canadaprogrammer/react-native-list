@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react'
 import { StyleSheet, Text, View, Button, ScrollView, FlatList,SectionList } from 'react-native'
 import Constants from 'expo-constants'
@@ -20,6 +21,8 @@ import {Ionicons} from 'react-native-vector-icons'
 // using react-redux
 import {Provider} from 'react-redux'
 import store from './redux/store'
+
+import PureButtonScreen from './screens/PureButtonScreen'
 
 const ContactTab = createStackNavigator({
   AddContact: AddContactScreen,
@@ -55,7 +58,10 @@ const AppNavigator = createSwitchNavigator({
   Main: MainNavigator,
   Login: LoginScreen,
 }, {
-  initialRouteName: 'Login',
+  // initialRouteName: 'Login',
+  
+  // for testing
+  initialRouteName: 'Main'
 })
 export default class App extends React.Component {
   state = {
@@ -109,14 +115,15 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <AppNavigator 
+        {/* <AppNavigator 
           // screenProps={{
           //   contacts: this.state.contacts,
           //   addContact: this.addContact,
           // }}
 
           // removed above for using reducer
-        />
+        /> */}
+        <PureButtonScreen />
       </Provider>
     )
     // if (this.state.showForm) return /* <AddContactForm onSubmit={this.addContact} /> */
