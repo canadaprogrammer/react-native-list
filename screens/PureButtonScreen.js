@@ -1,4 +1,5 @@
 /* eslint-disable import/order */
+
 import React from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 import PureButton from '../PureButton'

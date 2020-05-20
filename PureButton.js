@@ -11,6 +11,10 @@ export default class PureButton extends React.PureComponent {
   }
 
   render() {
+    const {title} = this.props
     return <Button {...this.props} color={this.state.color} />
+    
+    // for testing
+    // return <Button title="increment count" color={this.state.color} />
   }
 }

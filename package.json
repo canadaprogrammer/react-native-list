@@ -6,7 +6,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "eslint screens/"
+    "lint": "eslint screens/",
+    "test": "jest --verbose",
+    "test:watch": "jest --watch --verbose"
   },
   "dependencies": {
     "eslint-plugin-react": "^7.20.0",
@@ -20,6 +22,7 @@
     "react-native-web": "~0.11.7",
     "react-navigation": "2",
     "react-redux": "^7.2.0",
+    "react-test-renderer": "^16.13.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
   },
@@ -28,8 +31,13 @@
     "babel-preset-expo": "~8.1.0",
     "eslint": "^7.0.0",
     "eslint-config-kensho": "^16.3.0",
+    "jest": "^26.0.1",
+    "jest-expo": "^37.0.0",
     "prettier": "^2.0.5",
     "typescript": "^3.9.2"
   },
-  "private": true
+  "private": true,
+  "jest": {
+    "preset": "jest-expo"
+  }
 }

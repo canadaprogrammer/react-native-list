@@ -22,10 +22,11 @@ export const addContact = (newContact) => ({
 export const changeFirstContact = () => ({type: CHANGE_FIRST_CONTACT})
 
 // async action creator
-export const logInUser = (username, password) => async (dispatch) => {
+// add an arg loginFn for testing
+export const logInUser = (username, password, loginFn = login) => async (dispatch) => {
   dispatch({type: LOG_IN_SENT})
   try {
-    const token = await login(username, password)
+    const token = await loginFn(username, password)
     dispatch({type: LOG_IN_FULFILLED, payload: token})
   } catch (err) {
     dispatch({type: LOG_IN_REJECTED, payload: err.message})
